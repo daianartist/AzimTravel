@@ -1,0 +1,809 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Azim Travel - Туристическое агентство</title>
+  <meta name="description" content="Azim Travel - подбор туров, пляжный и семейный отдых, горящие предложения. Астана, Мангилик Ел 17.">
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBbW5kjaaLU-ri8M7eCwDCSt1I8Y-hcD0I",
+      authDomain: "azimtravel-f6008.firebaseapp.com",
+      projectId: "azimtravel-f6008",
+      storageBucket: "azimtravel-f6008.firebasestorage.app",
+      messagingSenderId: "872014497167",
+      appId: "1:872014497167:web:4caae65a0fee001f7df7fa"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    window.saveToFirebase = async function(data) {
+      try {
+        await addDoc(collection(db, "consultations"), {
+          ...data,
+          timestamp: new Date()
+        });
+        return true;
+      } catch (error) {
+        console.error("Firebase error:", error);
+        return false;
+      }
+    };
+  </script>
+    @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Unbounded:wght@500;700&display=swap");
+
+    :root {
+      --bg: #f2f8ff;
+      --bg-soft: #f7fbff;
+      --text: #10243f;
+      --muted: #51657c;
+      --line: #d8e8f6;
+      --brand: #1a67d0;
+      --brand-2: #18b9ea;
+      --white: #ffffff;
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --shadow: 0 20px 48px rgba(16, 36, 63, 0.14);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Manrope, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(70rem 35rem at -8% -10%, rgba(24, 185, 234, 0.2), transparent 50%),
+        radial-gradient(55rem 32rem at 100% 0, rgba(26, 103, 208, 0.18), transparent 45%),
+        linear-gradient(180deg, var(--bg), var(--bg-soft));
+    }
+
+    .container {
+      width: min(1180px, calc(100% - 28px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 18px 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .brand-mark {
+      width: 54px;
+      height: 54px;
+      border-radius: 16px;
+      background: linear-gradient(140deg, var(--brand-2), var(--brand));
+      position: relative;
+      box-shadow: 0 12px 26px rgba(26, 103, 208, 0.26);
+      flex-shrink: 0;
+    }
+
+    .brand-mark::before {
+      content: "";
+      position: absolute;
+      inset: 11px;
+      border: 2px solid rgba(255, 255, 255, 0.84);
+      border-radius: 999px;
+    }
+
+    .brand strong {
+      display: block;
+      font-family: Unbounded, sans-serif;
+      letter-spacing: 0.03em;
+      font-size: 21px;
+    }
+
+    .brand small {
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 11px;
+    }
+
+    .nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .nav a {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 700;
+      font-size: 14px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 10px 14px;
+      background: rgba(255, 255, 255, 0.76);
+    }
+
+    .hero {
+      margin-top: 8px;
+      display: grid;
+      gap: 18px;
+      grid-template-columns: 1.05fr 0.95fr;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .hero-copy {
+      padding: 28px;
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 800;
+      color: #0f4f96;
+      border-radius: 999px;
+      padding: 8px 12px;
+      background: rgba(24, 185, 234, 0.18);
+    }
+
+    .hero-copy h1 {
+      margin: 16px 0 0;
+      font-family: Unbounded, sans-serif;
+      font-size: clamp(32px, 6vw, 58px);
+      line-height: 1.02;
+      max-width: 11ch;
+    }
+
+    .hero-copy p {
+      margin: 16px 0 0;
+      color: var(--muted);
+      line-height: 1.68;
+      font-size: 18px;
+      max-width: 52ch;
+    }
+
+    .hero-cta {
+      margin-top: 22px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      text-decoration: none;
+      border: 0;
+      border-radius: 14px;
+      padding: 12px 16px;
+      font-weight: 800;
+      font-size: 15px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: inherit;
+    }
+
+    .btn.primary {
+      color: #fff;
+      background: linear-gradient(140deg, var(--brand), #0f59b2);
+      box-shadow: 0 14px 28px rgba(26, 103, 208, 0.28);
+    }
+
+    .btn.light {
+      color: var(--text);
+      background: #fff;
+      border: 1px solid var(--line);
+    }
+
+    .hero-slider {
+      padding: 14px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slides {
+      position: relative;
+      border-radius: 22px;
+      overflow: hidden;
+      min-height: 440px;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transform: scale(1.04);
+      transition: opacity 0.6s ease, transform 0.9s ease;
+      background-size: cover;
+      background-position: center;
+      display: grid;
+      align-content: end;
+    }
+
+    .slide.active {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .slide::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(8, 22, 39, 0.05), rgba(8, 22, 39, 0.72));
+    }
+
+    .slide-caption {
+      position: relative;
+      color: #fff;
+      padding: 22px;
+      z-index: 1;
+    }
+
+    .slide-caption strong {
+      display: block;
+      font-family: Unbounded, sans-serif;
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+
+    .slide-caption span {
+      opacity: 0.92;
+      line-height: 1.5;
+    }
+
+    .slider-dots {
+      position: absolute;
+      right: 18px;
+      bottom: 18px;
+      display: flex;
+      gap: 8px;
+      z-index: 4;
+    }
+
+    .slider-dots button {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      border: 0;
+      background: rgba(255, 255, 255, 0.45);
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .slider-dots button.active {
+      background: #fff;
+    }
+
+    section {
+      margin-top: 20px;
+    }
+
+    .section-card {
+      padding: 22px;
+      border-radius: var(--radius-xl);
+      border: 1px solid #deedf9;
+      background: rgba(255, 255, 255, 0.78);
+      box-shadow: var(--shadow);
+    }
+
+    .section-title {
+      margin: 0;
+      font-family: Unbounded, sans-serif;
+      font-size: clamp(25px, 4vw, 38px);
+      line-height: 1.15;
+    }
+
+    .section-lead {
+      margin: 10px 0 0;
+      color: var(--muted);
+      line-height: 1.67;
+      max-width: 70ch;
+    }
+
+    .destinations {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .destination-card {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #fff;
+      overflow: hidden;
+      box-shadow: 0 10px 24px rgba(16, 36, 63, 0.08);
+    }
+
+    .destination-card img {
+      width: 100%;
+      height: 165px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .destination-copy {
+      padding: 12px;
+    }
+
+    .destination-copy strong {
+      display: block;
+      font-size: 18px;
+      margin-bottom: 6px;
+    }
+
+    .destination-copy p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.58;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .contact-list {
+      margin-top: 12px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .contact-item {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+      padding: 12px;
+    }
+
+    .contact-item small {
+      display: block;
+      color: var(--muted);
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }
+
+    .contact-item a,
+    .contact-item span {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 18px;
+      line-height: 1.4;
+    }
+
+    .map-box {
+      margin-top: 12px;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      min-height: 300px;
+    }
+
+    .map-box iframe {
+      width: 100%;
+      height: 100%;
+      min-height: 300px;
+      border: 0;
+    }
+
+    .form-grid {
+      margin-top: 12px;
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .field { display: grid; gap: 6px; }
+    .field.full { grid-column: 1 / -1; }
+
+    label {
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      padding: 11px 12px;
+      font: inherit;
+      color: var(--text);
+      background: #fff;
+      outline: none;
+    }
+
+    textarea { min-height: 110px; resize: vertical; }
+
+    input:focus, textarea:focus, select:focus {
+      border-color: #66a8ef;
+      box-shadow: 0 0 0 3px rgba(102, 168, 239, 0.2);
+    }
+
+    .form-actions {
+      margin-top: 12px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .status {
+      margin-top: 10px;
+      display: none;
+      border-radius: 12px;
+      padding: 11px 12px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      line-height: 1.5;
+    }
+
+    .status.show { display: block; }
+    .status.ok {
+      color: #157852;
+      background: rgba(21, 120, 82, 0.1);
+      border-color: rgba(21, 120, 82, 0.26);
+    }
+    .status.err {
+      color: #ae3349;
+      background: rgba(174, 51, 73, 0.1);
+      border-color: rgba(174, 51, 73, 0.25);
+    }
+
+    .footer {
+      padding: 24px 0 34px;
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+    }
+
+    @media (max-width: 1050px) {
+      .hero { grid-template-columns: 1fr; }
+      .destinations { grid-template-columns: repeat(2, 1fr); }
+      .two-col { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 700px) {
+      .topbar { flex-direction: column; align-items: flex-start; }
+      .nav { width: 100%; }
+      .nav a { flex: 1 1 auto; text-align: center; }
+      .hero-copy, .hero-slider, .section-card { padding: 16px; }
+      .slides { min-height: 340px; }
+      .form-grid, .destinations { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="container topbar">
+    <a class="brand" href="#">
+      <div class="brand-mark" aria-hidden="true"></div>
+      <div>
+        <strong>AZIM TRAVEL</strong>
+        <small>Туристическое агентство</small>
+      </div>
+    </a>
+    <nav class="nav">
+      <a href="#about">О нас</a>
+      <a href="#destinations">Направления</a>
+      <a href="#contacts">Контакты</a>
+      <a href="#consultation">Консультация</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <article class="card hero-copy">
+        <span class="tag">Путешествия без лишнего стресса</span>
+        <h1>Отдых, который хочется повторить</h1>
+        <p>
+          Azim Travel помогает подобрать тур под ваш стиль отдыха: семейный, романтический, пляжный или городской.
+          Мы учитываем бюджет, даты и пожелания, чтобы вы получали подходящие варианты сразу.
+        </p>
+        <div class="hero-cta">
+          <a class="btn primary" href="#consultation">Забронировать консультацию</a>
+          <a class="btn light" href="https://wa.me/77750685888" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+        </div>
+      </article>
+
+      <aside class="card hero-slider" aria-label="Популярные курорты">
+        <div class="slides" id="slides">
+          <article class="slide active" style="background-image:url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1400&q=80');">
+            <div class="slide-caption">
+              <strong>Мальдивы</strong>
+              <span>Лагуны, виллы над водой, приватный отдых и идеальные закаты.</span>
+            </div>
+          </article>
+          <article class="slide" style="background-image:url('https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1400&q=80');">
+            <div class="slide-caption">
+              <strong>Дубай</strong>
+              <span>Городской ритм, пляжи, шопинг и премиальный сервис в одном путешествии.</span>
+            </div>
+          </article>
+          <article class="slide" style="background-image:url('https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1400&q=80');">
+            <div class="slide-caption">
+              <strong>Бали</strong>
+              <span>Тропическая природа, серфинг, йога-ретриты и насыщенная кухня.</span>
+            </div>
+          </article>
+          <article class="slide" style="background-image:url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1400&q=80');">
+            <div class="slide-caption">
+              <strong>Анталья</strong>
+              <span>Пляжные отели all inclusive, семейный формат и короткий перелет.</span>
+            </div>
+          </article>
+        </div>
+        <div class="slider-dots" id="sliderDots" aria-label="Переключатель слайдов"></div>
+      </aside>
+    </section>
+
+    <section id="about" class="section-card">
+      <h2 class="section-title">О турагентстве Azim Travel</h2>
+      <p class="section-lead">
+        Мы подбираем поездки с учетом ваших целей: отдых у моря, отпуск с детьми, медовый месяц или горящие туры.
+        В команде Azim Travel вы получаете персональный подход и понятный маршрут от первой консультации до вылета.
+      </p>
+    </section>
+
+    <section id="destinations" class="section-card">
+      <h2 class="section-title">Популярные направления</h2>
+      <p class="section-lead">
+        Ниже направления, которые чаще всего выбирают наши клиенты. Для каждого маршрута мы подбираем несколько форматов отдыха и отелей под ваш бюджет.
+      </p>
+      <div class="destinations">
+        <article class="destination-card">
+          <img src="https://images.unsplash.com/photo-1578922746465-3a80a228f223?auto=format&fit=crop&w=1200&q=80" alt="Пляж в Турции">
+          <div class="destination-copy">
+            <strong>Турция</strong>
+            <p>Классический пляжный формат, all inclusive и удобный выбор для семей с детьми.</p>
+          </div>
+        </article>
+        <article class="destination-card">
+          <img src="https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=1200&q=80" alt="Курорт в ОАЭ">
+          <div class="destination-copy">
+            <strong>ОАЭ</strong>
+            <p>Комфортные отели, шопинг, развлечения и теплое море в сезон.</p>
+          </div>
+        </article>
+        <article class="destination-card">
+          <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=1200&q=80" alt="Островной отдых в Таиланде">
+          <div class="destination-copy">
+            <strong>Таиланд</strong>
+            <p>Экзотика, острова и гибкий формат отдыха: от спокойного до активного.</p>
+          </div>
+        </article>
+        <article class="destination-card">
+          <img src="https://images.unsplash.com/photo-1539650116574-75c0c6d73f0e?auto=format&fit=crop&w=1200&q=80" alt="Пляжный отдых во Вьетнаме">
+          <div class="destination-copy">
+            <strong>Вьетнам</strong>
+            <p>Пляжи, природа и отличное соотношение цены и качества на длительный отдых.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="contacts" class="two-col">
+      <article class="section-card">
+        <h2 class="section-title">Контакты</h2>
+        <p class="section-lead">Свяжитесь с нами любым удобным способом.</p>
+        <div class="contact-list">
+          <div class="contact-item">
+            <small>Телефон / WhatsApp</small>
+            <a href="tel:+77750685888">+7 775 068 58 88</a>
+          </div>
+          <div class="contact-item">
+            <small>Instagram</small>
+            <a href="https://www.instagram.com/azimtravel" target="_blank" rel="noopener noreferrer">@azimtravel</a>
+          </div>
+          <div class="contact-item">
+            <small>Telegram с горящими ценами</small>
+            <a href="https://t.me/azimtravel?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnZ1xuURX-9J4R3hJMdW2PuekDXTauPihyxcRwDiVlVNf_b31uGO5dagkgQTw_aem_RqMML-EPk_mpHqPK72i4fw" target="_blank" rel="noopener noreferrer">Перейти в канал</a>
+          </div>
+          <div class="contact-item">
+            <small>Офис</small>
+            <span>Астана, Мангилик Ел 17</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="section-card">
+        <h2 class="section-title">Мы на карте</h2>
+        <p class="section-lead">Заходите в офис или сохраните адрес для удобной встречи.</p>
+        <div class="map-box">
+          <iframe
+            title="Карта офиса Azim Travel"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps?q=%D0%9C%D0%B0%D0%BD%D0%B3%D0%B8%D0%BB%D0%B8%D0%BA+%D0%95%D0%BB+17+%D0%90%D1%81%D1%82%D0%B0%D0%BD%D0%B0&output=embed">
+          </iframe>
+        </div>
+      </article>
+    </section>
+
+    <section id="consultation" class="section-card">
+      <h2 class="section-title">Забронировать консультацию</h2>
+      <p class="section-lead">
+        Оставьте заявку, и мы свяжемся с вами, чтобы подобрать оптимальный тур по датам, бюджету и составу путешественников.
+      </p>
+
+      <form id="consultationForm">
+        <div class="form-grid">
+          <div class="field">
+            <label for="name">Имя</label>
+            <input id="name" name="name" required placeholder="Как к вам обращаться">
+          </div>
+          <div class="field">
+            <label for="phone">Телефон / WhatsApp</label>
+            <input id="phone" name="phone" required placeholder="+7 700 000 00 00">
+          </div>
+          <div class="field">
+            <label for="direction">Интересующее направление</label>
+            <input id="direction" name="direction" placeholder="Турция, ОАЭ, Таиланд...">
+          </div>
+          <div class="field">
+            <label for="people">Количество путешественников</label>
+            <input id="people" name="people" placeholder="Например: 2 взрослых, 1 ребенок">
+          </div>
+          <div class="field">
+            <label for="dateFrom">Дата от</label>
+            <input id="dateFrom" name="dateFrom" type="date">
+          </div>
+          <div class="field">
+            <label for="dateTo">Дата до</label>
+            <input id="dateTo" name="dateTo" type="date">
+          </div>
+          <div class="field">
+            <label for="budget">Бюджет (по желанию)</label>
+            <input id="budget" name="budget" type="number" min="0" placeholder="В тенге">
+          </div>
+          <div class="field">
+            <label for="contactMethod">Удобный способ связи</label>
+            <select id="contactMethod" name="contactMethod">
+              <option>WhatsApp</option>
+              <option>Телефон</option>
+              <option>Telegram</option>
+            </select>
+          </div>
+          <div class="field full">
+            <label for="comment">Комментарий</label>
+            <textarea id="comment" name="comment" placeholder="Опишите пожелания: тип отеля, питание, близость к морю, особые условия."></textarea>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn primary">Отправить заявку</button>
+          <a class="btn light" href="https://wa.me/77750685888" target="_blank" rel="noopener noreferrer">Перейти в WhatsApp</a>
+        </div>
+        <div id="formStatus" class="status" aria-live="polite"></div>
+      </form>
+    </section>
+  </main>
+
+  <footer class="container footer">
+    Azim Travel • Астана, Мангилик Ел 17 • +7 775 068 58 88
+  </footer>
+
+  <script>
+    const slides = Array.from(document.querySelectorAll(".slide"));
+    const dotsHost = document.getElementById("sliderDots");
+    let currentSlide = 0;
+    let sliderTimer = null;
+
+    function renderDots() {
+      dotsHost.innerHTML = "";
+      slides.forEach((_, idx) => {
+        const dot = document.createElement("button");
+        dot.type = "button";
+        dot.className = idx === currentSlide ? "active" : "";
+        dot.setAttribute("aria-label", "Слайд " + (idx + 1));
+        dot.addEventListener("click", () => {
+          currentSlide = idx;
+          paintSlides();
+          restartTimer();
+        });
+        dotsHost.appendChild(dot);
+      });
+    }
+
+    function paintSlides() {
+      slides.forEach((s, idx) => s.classList.toggle("active", idx === currentSlide));
+      Array.from(dotsHost.children).forEach((d, idx) => d.classList.toggle("active", idx === currentSlide));
+    }
+
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % slides.length;
+      paintSlides();
+    }
+
+    function restartTimer() {
+      clearInterval(sliderTimer);
+      sliderTimer = setInterval(nextSlide, 4500);
+    }
+
+    function showStatus(text, isError) {
+      const box = document.getElementById("formStatus");
+      box.textContent = text;
+      box.className = "status show " + (isError ? "err" : "ok");
+    }
+
+    function toHumanDate(iso) {
+      if (!iso) return "-";
+      const [y, m, d] = iso.split("-");
+      if (!y || !m || !d) return "-";
+      return d + "." + m + "." + y;
+    }
+
+    function buildWhatsappText(data) {
+      const lines = [
+        "Здравствуйте, Azim Travel.",
+        "Хочу забронировать консультацию.",
+        "Имя: " + data.name,
+        "Контакты: " + data.phone,
+        "Направление: " + data.direction,
+        "Количество путешественников: " + data.people,
+        "Дата от: " + toHumanDate(data.dateFrom),
+        "Дата до: " + toHumanDate(data.dateTo),
+        "Бюджет: " + (data.budget || "-"),
+        "Удобный способ связи: " + data.contactMethod,
+        "Комментарий: " + (data.comment || "-")
+      ];
+      return encodeURIComponent(lines.join("\n"));
+    }
+
+    document.getElementById("consultationForm").addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const f = event.currentTarget;
+      const data = {
+        name: f.name.value.trim(),
+        phone: f.phone.value.trim(),
+        direction: f.direction.value.trim() || "-",
+        people: f.people.value.trim() || "-",
+        dateFrom: f.dateFrom.value,
+        dateTo: f.dateTo.value,
+        budget: f.budget.value.trim(),
+        contactMethod: f.contactMethod.value,
+        comment: f.comment.value.trim()
+      };
+
+      if (!data.name || !data.phone) {
+        showStatus("Пожалуйста, заполните имя и контактный телефон.", true);
+        return;
+      }
+
+      // Сохраняем в Firebase
+      const saved = await window.saveToFirebase(data);
+      if (!saved) {
+        showStatus("Ошибка сохранения данных. Попробуйте еще раз.", true);
+        return;
+      }
+
+      const message = buildWhatsappText(data);
+      const waUrl = "https://wa.me/77750685888?text=" + message;
+      window.open(waUrl, "_blank", "noopener,noreferrer");
+      showStatus("Заявка сохранена! Открыт WhatsApp с вашей заявкой. Мы также ждем вас в директе и по телефону.", false);
+      f.reset();
+    });
+
+    renderDots();
+    restartTimer();
+  </script>
+</body>
+</html>
